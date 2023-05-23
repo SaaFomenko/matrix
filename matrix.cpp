@@ -1,42 +1,79 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-#include <vector>
+//#include <vector>
 
-template<class T>
-class Matrix 
+template <class T>
+class Array
 {
 	private:
-
-		const int row_;
-		const int col_;
-		std::vector<std::vector<T>>* double_vector;
+		const int size;
+		T* arr;
 
 	public:
+		Array(int size_) :
+			size(size_),
+			arr(new T[size])
+		{}
 
-		Matrix(const int row, const int col) :
-			row_(row),
-			col_(col)
+		virtual ~Array()
 		{
-			double_vector = new std::vector<std::vector<T>>[row_];
+			delete[] arr;
+			arr = nullptr;
+		}
 
-			for (int i = 0; i < row_; ++i)
+		T& operator[](int index) const
+		{
+			return arr[index];
+		}
+
+		T& operator[](int index)
+		{
+			return arr[index];
+		}
+};
+
+template <class T>
+class Matrix
+{
+	private:
+		int rows;
+		int cols;
+		T** arr;
+
+	public:
+		Matrix(int rows_, int cols_) :
+			rows(rows_),
+			cols(cols_)
+		{
+			arr = new T*[rows];
+			
+			for (int i = 0; i < rows; ++i)
 			{
-				double_vector[i] = new std::vector<T>[col_];
+				arr[i] = new T[cols];
 			}
 		}
 
-		virtual ~Matrix() 
+		virtual ~Matrix()
 		{
-			for (int i = 0; i < row_; ++i)
+			for(int i = 0; i < rows; ++i)
 			{
-				delete[] double_vector[i];
+				delete[] arr[i];
 			}
 
-			delete[] double_vector;
-			double_vector = nullptr;
+			delete[] arr;
+			arr = nullptr;
 		}
 
+	RowInMatrix operator[](int row)
+	{
+		return RowInMatrix(*this, row);
+	}	
+};
+
+class RowInMatrix
+{
+	friend class Matrix;
 };
 
 #endif
