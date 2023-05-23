@@ -10,7 +10,7 @@ class Matrix
 
 		const int row_;
 		const int col_;
-		std::vector<T>* double_vector;
+		std::vector<std::vector<T>>* double_vector;
 
 	public:
 
@@ -18,7 +18,7 @@ class Matrix
 			row_(row),
 			col_(col)
 		{
-			double_vector = new std::vector<T>[row_];
+			double_vector = new std::vector<std::vector<T>>[row_];
 
 			for (int i = 0; i < row_; ++i)
 			{
