@@ -1,48 +1,19 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-//#include <vector>
-
-template <class T>
-class Array
-{
-	private:
-		const int size;
-		T* arr;
-
-	public:
-		Array(int size_) :
-			size(size_),
-			arr(new T[size])
-		{}
-
-		virtual ~Array()
-		{
-			delete[] arr;
-			arr = nullptr;
-		}
-
-		T& operator[](int index) const
-		{
-			return arr[index];
-		}
-
-		T& operator[](int index)
-		{
-			return arr[index];
-		}
-};
-
 template <class T>
 class Matrix
 {
 	private:
-		int rows;
-		int cols;
+		const unsigned int rows;
+		const unsigned int cols;
 		T** arr;
 
 	public:
-		Matrix(int rows_, int cols_) :
+		Matrix(
+				const unsigned int rows_, 
+				const unsigned int cols_
+			) :
 			rows(rows_),
 			cols(cols_)
 		{
@@ -65,15 +36,27 @@ class Matrix
 			arr = nullptr;
 		}
 
-	RowInMatrix operator[](int row)
+	T* operator[](int row)
 	{
-		return RowInMatrix(*this, row);
+		if (row >= rows) throw "Fail index rows matrix.";
+		return arr[row];
 	}	
-};
 
-class RowInMatrix
-{
-	friend class Matrix;
+	T* operator[](int row) const
+	{
+		if (row >= rows) throw "Fail index rows matrix.";
+		return arr[row];
+	}	
+
+	const unsigned int getRows()
+	{
+		return rows;
+	}
+
+	const unsigned int getCols()
+	{
+		return cols;
+	}
 };
 
 #endif
