@@ -48,14 +48,19 @@ class Matrix
 		return arr[row];
 	}	
 
-	const unsigned int getRows()
+	const unsigned int sizeRows()
 	{
 		return rows;
 	}
 
-	const unsigned int getCols()
+	const unsigned int sizeCols()
 	{
 		return cols;
+	}
+
+	const unsigned int Size()
+	{
+		return rows * cols;
 	}
 };
 
